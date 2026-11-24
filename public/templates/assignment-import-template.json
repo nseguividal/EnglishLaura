@@ -1,0 +1,234 @@
+{
+  "_comment": "Cambridge English Exam Prep — Full Assignment JSON Import Template (All 10 Question Types + Optional Question Images). Give this exact schema to an LLM and ask it to return a single valid JSON object.",
+  "_allowed_enums": {
+    "level": ["B2_FIRST", "C1_ADVANCED"],
+    "category": ["READING", "LISTENING", "WRITING", "VOCABULARY", "GRAMMAR", "USE_OF_ENGLISH"],
+    "assignment_type": ["INTERACTIVE_EXERCISE", "EXTERNAL_LINK"],
+    "media_type": ["NONE", "READING_PASSAGE", "VIDEO_URL", "AUDIO_MP4_UPLOAD"],
+    "question_type": [
+      "MULTIPLE_CHOICE",
+      "MULTIPLE_SELECT",
+      "FILL_IN_THE_BLANK",
+      "KEY_WORD_TRANSFORMATION",
+      "OPEN_ENDED",
+      "SPEAKING_RECORDING",
+      "TRUE_FALSE_NOT_GIVEN",
+      "MATCHING",
+      "GAPPED_TEXT",
+      "INLINE_CLOZE",
+      "WORD_BANK_CLOZE",
+      "CATEGORIZE",
+      "SENTENCE_ORDERING",
+      "ERROR_CORRECTION"
+    ]
+  },
+  "title": "B2 Complete Showcase: Sustainable Cities",
+  "instructions": "Read the passage on the left and complete each question type on the right.",
+  "level": "B2_FIRST",
+  "category": "READING",
+  "assignment_type": "INTERACTIVE_EXERCISE",
+  "external_url": null,
+  "media_type": "READING_PASSAGE",
+  "media_content": "Paragraph A: Across Europe, city planners are rethinking how urban neighbourhoods balance public transport, green spaces, and affordable housing. [1]\n\nParagraph B: Residents who live within a ten-minute walk of public parks report lower stress levels and stronger community ties. [2]",
+  "is_published": true,
+  "questions": [
+    {
+      "question_type": "MULTIPLE_CHOICE",
+      "prompt": "According to Paragraph B, what benefit is associated with living near public parks?",
+      "image_url": null,
+      "options": [
+        "Higher property taxes",
+        "Lower stress levels and stronger community ties",
+        "Faster motorway commutes",
+        "Increased industrial growth"
+      ],
+      "correct_answer": "Lower stress levels and stronger community ties",
+      "explanation": "Paragraph B explicitly mentions lower stress levels and stronger community ties."
+    },
+    {
+      "question_type": "TRUE_FALSE_NOT_GIVEN",
+      "prompt": "European city planners have completely banned private cars from all residential areas.",
+      "correct_answer": "NOT_GIVEN",
+      "explanation": "The passage mentions balancing public transport and housing, but does not state whether cars are banned."
+    },
+    {
+      "question_type": "FILL_IN_THE_BLANK",
+      "prompt": "Urban planners must make a careful ________ between green space and housing density.",
+      "keyword": "DECIDE",
+      "accepted_answers": ["decision"],
+      "explanation": "Noun form of 'decide' is 'decision' (collocation: make a decision)."
+    },
+    {
+      "question_type": "MATCHING",
+      "prompt": "Match each statement or synonym to the correct paragraph (or definition).",
+      "question_data": {
+        "pairs": [
+          {
+            "id": "p1",
+            "prompt": "Mentions how cities balance transport and housing",
+            "match": "Paragraph A"
+          },
+          {
+            "id": "p2",
+            "prompt": "Refers to mental wellbeing benefits of nearby parks",
+            "match": "Paragraph B"
+          }
+        ],
+        "distractors": ["Paragraph C"]
+      },
+      "explanation": "Paragraph A discusses transport and housing; Paragraph B discusses stress levels."
+    },
+    {
+      "question_type": "GAPPED_TEXT",
+      "prompt": "Choose which removed sentence (A–C) best fits each numbered gap [1] and [2] in the passage. There is one extra sentence you do not need.",
+      "question_data": {
+        "passages": [
+          {
+            "label": "A",
+            "text": "In several capitals, old car parks are being converted into pocket gardens and cycling hubs."
+          },
+          {
+            "label": "B",
+            "text": "Local councils have noticed that these green corridors also encourage children to play outdoors."
+          },
+          {
+            "label": "C",
+            "text": "Meanwhile, deep-sea fishing quotas remained unchanged throughout the winter."
+          }
+        ],
+        "gapped_gaps": [
+          { "id": "1", "correct_label": "A" },
+          { "id": "2", "correct_label": "B" }
+        ]
+      },
+      "explanation": "Sentence A connects to transport/green spaces in Paragraph A; Sentence B extends the park benefits in Paragraph B; C is the distractor."
+    },
+    {
+      "question_type": "INLINE_CLOZE",
+      "prompt": "Choose the best word from each dropdown to complete the text.",
+      "question_data": {
+        "text": "When the council {{1}} the new bike lane, commuters quickly {{2}} advantage of the safer route.",
+        "inline_gaps": [
+          {
+            "id": "1",
+            "options": ["launched", "did", "happened", "arrived"],
+            "correct_answer": "launched"
+          },
+          {
+            "id": "2",
+            "options": ["made", "took", "had", "gave"],
+            "correct_answer": "took"
+          }
+        ]
+      },
+      "explanation": "'Launch a bike lane' and 'take advantage of' are natural B2 collocations."
+    },
+    {
+      "question_type": "WORD_BANK_CLOZE",
+      "prompt": "Click words from the word bank to complete the sentences. One word is not needed.",
+      "question_data": {
+        "text": "The new metro station is {{1}} located near the university and {{2}} priced for students.",
+        "word_bank": ["conveniently", "reasonably", "hardly"],
+        "word_bank_gaps": [
+          { "id": "1", "correct_answer": "conveniently" },
+          { "id": "2", "correct_answer": "reasonably" }
+        ]
+      },
+      "explanation": "'Conveniently located' and 'reasonably priced' are standard adverb-adjective collocations."
+    },
+    {
+      "question_type": "SENTENCE_ORDERING",
+      "prompt": "Put the segments in the correct order to form a C1-style inverted sentence.",
+      "question_data": {
+        "segments": [
+          "Not only",
+          "did the city",
+          "expand its parks,",
+          "but it also",
+          "cut traffic emissions."
+        ]
+      },
+      "explanation": "'Not only + auxiliary + subject + verb ... but also ...' requires subject-auxiliary inversion."
+    },
+    {
+      "question_type": "ERROR_CORRECTION",
+      "prompt": "Correct the highlighted grammatical error in the sentence below.",
+      "question_data": {
+        "sentence": "She suggested me to take the earlier train to Cambridge.",
+        "error_text": "me to take",
+        "accepted_corrections": ["taking", "that I take", "that I should take"]
+      },
+      "explanation": "The verb 'suggest' is followed by -ing or 'that + subject + verb', never 'object + to-infinitive'."
+    },
+    {
+      "question_type": "MULTIPLE_SELECT",
+      "prompt": "Which TWO advantages of urban parks are mentioned in the passage?",
+      "options": [
+        "They lower stress levels among nearby residents",
+        "They eliminate the need for public buses",
+        "They strengthen community ties",
+        "They increase office rental prices",
+        "They replace underground metro lines"
+      ],
+      "question_data": {
+        "correct_answers": [
+          "They lower stress levels among nearby residents",
+          "They strengthen community ties"
+        ],
+        "required_count": 2
+      },
+      "explanation": "Paragraph B highlights both lower stress levels and stronger community ties."
+    },
+    {
+      "question_type": "KEY_WORD_TRANSFORMATION",
+      "prompt": "Complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. You must use between two and five words, including the word given.",
+      "question_data": {
+        "original_sentence": "I regret not booking the train tickets earlier.",
+        "keyword": "WISH",
+        "prefix_text": "I",
+        "suffix_text": "the train tickets earlier.",
+        "min_words": 2,
+        "max_words": 5,
+        "accepted_answers": [
+          "wish I had booked",
+          "wish I'd booked"
+        ],
+        "half_credit_parts": [
+          "wish I",
+          "had booked"
+        ]
+      },
+      "explanation": "Use 'wish + past perfect' (wish I had booked) to express regret about a past action. Worth 2 points (1 pt per half)."
+    },
+    {
+      "question_type": "CATEGORIZE",
+      "prompt": "Sort each linking expression into Formal (suitable for C1 essays) or Informal (suitable for casual emails).",
+      "question_data": {
+        "categories": ["Formal", "Informal"],
+        "items": [
+          { "id": "i1", "text": "Furthermore", "correct_category": "Formal" },
+          { "id": "i2", "text": "Anyway", "correct_category": "Informal" },
+          { "id": "i3", "text": "Nevertheless", "correct_category": "Formal" },
+          { "id": "i4", "text": "Loads of", "correct_category": "Informal" }
+        ]
+      },
+      "explanation": "'Furthermore' and 'Nevertheless' belong to formal academic register; 'Anyway' and 'Loads of' are informal."
+    },
+    {
+      "question_type": "SPEAKING_RECORDING",
+      "prompt": "Cambridge Speaking Part 2 Practice: Talk for 60 seconds comparing the advantages of living in a green city versus the countryside.",
+      "question_data": {
+        "min_seconds": 30,
+        "max_seconds": 90
+      },
+      "explanation": "Graded by your teacher on Pronunciation, Discourse Management, Lexical Resource, and Grammar."
+    },
+    {
+      "question_type": "OPEN_ENDED",
+      "prompt": "Write a short essay (140–190 words) discussing whether private cars should be restricted in historic city centres.",
+      "min_words": 140,
+      "max_words": 190,
+      "explanation": "Evaluated on Cambridge B2 criteria: Content, Communicative Achievement, Organisation, and Language."
+    }
+  ]
+}
