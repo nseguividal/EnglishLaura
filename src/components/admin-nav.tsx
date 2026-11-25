@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   BarChart3,
   ClipboardCheck,
+  Flag,
   Layers,
   Library,
 } from "lucide-react";
@@ -15,6 +16,7 @@ const ADMIN_TABS = [
   { href: "/admin/steps", label: "Steps & Path", icon: Layers },
   { href: "/admin/assignments", label: "Assignment Bank", icon: Library },
   { href: "/admin/reviews", label: "Submissions & Grading", icon: ClipboardCheck },
+  { href: "/admin/reports", label: "Reports", icon: Flag },
 ];
 
 export function AdminNav() {

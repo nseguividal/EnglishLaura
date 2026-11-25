@@ -119,6 +119,23 @@ export interface QuestionData {
   max_seconds?: number;
 }
 export type SubmissionStatus = "COMPLETED" | "PENDING_REVIEW" | "GRADED";
+export type ReportType = "EXERCISE_ISSUE" | "WEBSITE_BUG";
+export type ReportStatus = "OPEN" | "RESOLVED";
+
+export interface FeedbackReport {
+  id: string;
+  user_id: string;
+  report_type: ReportType;
+  issue_category: string;
+  assignment_id: string | null;
+  question_id: string | null;
+  page_url: string | null;
+  message: string;
+  status: ReportStatus;
+  admin_notes: string | null;
+  resolved_at: string | null;
+  created_at: string;
+}
 
 export interface Profile {
   id: string;

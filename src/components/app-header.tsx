@@ -6,7 +6,9 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   BarChart3,
   BookOpenCheck,
+  Bug,
   ChevronDown,
+  Flag,
   LayoutDashboard,
   LogOut,
   ShieldCheck,
@@ -15,6 +17,7 @@ import {
 import { createClient } from "@/lib/supabase/client";
 import type { Profile } from "@/types/database";
 import { LevelSwitcher } from "@/components/level-switcher";
+import { ReportIssueModal } from "@/components/report-issue-modal";
 import { cn } from "@/lib/utils";
 
 interface AppHeaderProps {
@@ -25,6 +28,7 @@ export function AppHeader({ profile }: AppHeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [bugModalOpen, setBugModalOpen] = useState(false);
 
   async function handleSignOut() {
     setMenuOpen(false);
@@ -168,6 +172,34 @@ export function AppHeader({ profile }: AppHeaderProps) {
                     <BarChart3 className="h-4 w-4 text-slate-500" />
                     Analytics
                   </Link>
+                  {profile.role === "admin" && (
+                    <Link
+                      href="/admin/reports"
+                      role="menuitem"
+                      onClick={() => setMenuOpen(false)}
+                      className={cn(
+                        "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                        pathname === "/admin/reports"
+                          ? "bg-slate-100 text-[#0f2544]"
+                          : "text-slate-700 hover:bg-slate-50 hover:text-[#0f2544]"
+                      )}
+                    >
+                      <Flag className="h-4 w-4 text-slate-500" />
+                      Reports Inbox
+                    </Link>
+                  )}
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setBugModalOpen(true);
+                    }}
+                    className="flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 hover:text-[#0f2544]"
+                  >
+                    <Bug className="h-4 w-4 text-slate-500" />
+                    Report a Bug
+                  </button>
                   <div className="my-1 border-t border-slate-100" />
                   <button
                     type="button"
@@ -184,6 +216,12 @@ export function AppHeader({ profile }: AppHeaderProps) {
           </div>
         </div>
       </div>
+      <ReportIssueModal
+        open={bugModalOpen}
+        onOpenChange={setBugModalOpen}
+        mode="WEBSITE_BUG"
+        userId={profile.id}
+      />
     </header>
   );
 }

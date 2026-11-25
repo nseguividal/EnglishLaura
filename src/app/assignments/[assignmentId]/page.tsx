@@ -14,6 +14,7 @@ import {
 import { AppHeader } from "@/components/app-header";
 import { Badge } from "@/components/ui/badge";
 import { AssignmentMediaPane } from "@/components/assignment-media-pane";
+import { ExerciseReportButton } from "@/components/exercise-report-button";
 import { ExternalLinkExercise } from "@/components/external-link-exercise";
 import { InteractiveExercise } from "@/components/interactive-exercise";
 import { MultiPhaseInteractiveExercise } from "@/components/multiphase-interactive-exercise";
@@ -118,18 +119,29 @@ export default async function AssignmentPage({
 
         {/* Assignment Title & Instructions */}
         <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge>{EXAM_LEVEL_LABELS[assignment.level]}</Badge>
-            <span
-              className={cn(
-                "inline-flex items-center rounded-sm border px-2.5 py-0.5 text-xs font-medium",
-                catStyle.bg,
-                catStyle.text,
-                catStyle.border
-              )}
-            >
-              {CATEGORY_LABELS[assignment.category]}
-            </span>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge>{EXAM_LEVEL_LABELS[assignment.level]}</Badge>
+              <span
+                className={cn(
+                  "inline-flex items-center rounded-sm border px-2.5 py-0.5 text-xs font-medium",
+                  catStyle.bg,
+                  catStyle.text,
+                  catStyle.border
+                )}
+              >
+                {CATEGORY_LABELS[assignment.category]}
+              </span>
+            </div>
+            <ExerciseReportButton
+              userId={profile.id}
+              assignmentId={assignment.id}
+              assignmentTitle={assignment.title}
+              questions={questions.map((q, idx) => ({
+                id: q.id,
+                label: `Q${idx + 1}: ${q.prompt.slice(0, 60)}${q.prompt.length > 60 ? "..." : ""}`,
+              }))}
+            />
           </div>
           <h1 className="mt-2.5 text-2xl font-bold text-[#0f2544]">
             {assignment.title}
