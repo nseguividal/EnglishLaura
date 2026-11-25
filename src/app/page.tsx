@@ -57,7 +57,7 @@ export default async function HomePage() {
         {/* Hero */}
         <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-white to-slate-50 py-20 sm:py-28">
           <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-            <Badge variant="success" className="mb-6 px-3 py-1 text-xs">
+            <Badge className="mb-6 border-transparent bg-[#0f766e] px-3 py-1 text-xs text-white">
               <GraduationCap className="h-3.5 w-3.5" />
               B2 First (FCE) &amp; C1 Advanced (CAE) Exam Preparation
             </Badge>

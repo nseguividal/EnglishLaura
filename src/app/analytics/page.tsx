@@ -7,6 +7,7 @@ import {
   buildCategoryStepSeries,
   type StepAssignmentWithMeta,
 } from "@/lib/analytics";
+import { getScoreBadgeVariant } from "@/lib/scoring";
 import {
   ALL_CATEGORIES,
   CATEGORY_COLORS,
@@ -220,7 +221,9 @@ export default async function StudentAnalyticsPage() {
                           Pending Grade
                         </Badge>
                       ) : (
-                        <Badge variant="success">
+                        <Badge
+                          variant={getScoreBadgeVariant(sub.percentage_score)}
+                        >
                           <CheckCircle2 className="h-3 w-3" />
                           {sub.percentage_score !== null
                             ? `${Math.round(Number(sub.percentage_score))}%`

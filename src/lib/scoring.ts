@@ -79,6 +79,26 @@ export function parseExternalScore(rawInput: string): ParsedExternalScore {
   };
 }
 
+export type ScoreBadgeVariant = "success" | "warning" | "destructive";
+
+/**
+ * Returns the badge color variant for a percentage score:
+ * - 0–39%: destructive (red)
+ * - 40–59%: warning (yellow/ochre)
+ * - 60–100%: success (green)
+ */
+export function getScoreBadgeVariant(
+  score: number | null | undefined
+): ScoreBadgeVariant {
+  if (score === null || score === undefined || Number.isNaN(Number(score))) {
+    return "success";
+  }
+  const n = Number(score);
+  if (n < 40) return "destructive";
+  if (n < 60) return "warning";
+  return "success";
+}
+
 export function countWords(text: string): number {
   const cleaned = text.trim();
   if (!cleaned) return 0;

@@ -282,7 +282,7 @@ export default async function DashboardPage() {
                           className={cn(
                             "inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
                             isCurrent
-                              ? "bg-[#3E6B52] text-white"
+                              ? "bg-[#0f766e] text-white"
                               : "border border-slate-200 bg-slate-50 text-[#0f2544]"
                           )}
                         >

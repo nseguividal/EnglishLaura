@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Clock, Loader2, Save, XCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { getScoreBadgeVariant } from "@/lib/scoring";
 import {
   CATEGORY_LABELS,
   EXAM_LEVEL_LABELS,
@@ -181,12 +182,20 @@ export function AdminReviewQueue({
                             Pending Review
                           </Badge>
                         ) : item.status === "GRADED" ? (
-                          <Badge variant="success">
+                          <Badge
+                            variant={getScoreBadgeVariant(
+                              item.percentage_score
+                            )}
+                          >
                             <CheckCircle2 className="h-3 w-3" />
                             Graded ({item.percentage_score}%)
                           </Badge>
                         ) : (
-                          <Badge variant="secondary">
+                          <Badge
+                            variant={getScoreBadgeVariant(
+                              item.percentage_score
+                            )}
+                          >
                             <CheckCircle2 className="h-3 w-3" />
                             Completed ({item.percentage_score ?? "—"}%)
                           </Badge>

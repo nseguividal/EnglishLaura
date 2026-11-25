@@ -9,7 +9,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { parseExternalScore } from "@/lib/scoring";
+import { getScoreBadgeVariant, parseExternalScore } from "@/lib/scoring";
 import type { Assignment, Submission } from "@/types/database";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -141,7 +141,9 @@ export function ExternalLinkExercise({
               </CardDescription>
             </div>
             {savedSubmission && (
-              <Badge variant="success">
+              <Badge
+                variant={getScoreBadgeVariant(savedSubmission.percentage_score)}
+              >
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 Recorded: {Math.round(Number(savedSubmission.percentage_score))}%
               </Badge>

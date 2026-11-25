@@ -14,7 +14,10 @@ import {
   XCircle,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { gradeInteractiveExercise } from "@/lib/scoring";
+import {
+  getScoreBadgeVariant,
+  gradeInteractiveExercise,
+} from "@/lib/scoring";
 import {
   QUESTION_TYPE_LABELS,
   type AnswerEntry,
@@ -256,7 +259,7 @@ export function MultiPhaseInteractiveExercise({
                     All {phases.length} Phases Completed
                   </h2>
                   {overallAverage !== null && (
-                    <Badge variant="success">
+                    <Badge variant={getScoreBadgeVariant(overallAverage)}>
                       Final Average: {Math.round(overallAverage)}%
                     </Badge>
                   )}
@@ -384,7 +387,9 @@ export function MultiPhaseInteractiveExercise({
             </h2>
           </div>
           {isPhaseChecked && activeResult?.percentageScore !== null && (
-            <Badge variant="success">
+            <Badge
+              variant={getScoreBadgeVariant(activeResult.percentageScore)}
+            >
               Phase {activePhaseIdx + 1} Score:{" "}
               {Math.round(activeResult.percentageScore)}%
             </Badge>

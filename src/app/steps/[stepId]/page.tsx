@@ -2,19 +2,14 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import {
   ArrowLeft,
-  ArrowRight,
   BookOpen,
   CheckCircle2,
   Clock,
-  ExternalLink,
-  FileText,
-  Headphones,
-  ListChecks,
-  Video,
 } from "lucide-react";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { computeStepProgression } from "@/lib/steps";
+import { getScoreBadgeVariant } from "@/lib/scoring";
 import {
   ALL_CATEGORIES,
   CATEGORY_COLORS,
@@ -200,43 +195,7 @@ export default async function StepDetailPage({ params }: StepPageProps) {
                           )}
                         >
                           <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="inline-flex items-center gap-1 text-xs font-medium text-slate-500">
-                                {assignment.assignment_type ===
-                                "EXTERNAL_LINK" ? (
-                                  <>
-                                    <ExternalLink className="h-3.5 w-3.5" />
-                                    External Resource
-                                  </>
-                                ) : (
-                                  <>
-                                    <ListChecks className="h-3.5 w-3.5" />
-                                    Interactive Exercise
-                                  </>
-                                )}
-                              </span>
-
-                              {assignment.media_type === "READING_PASSAGE" && (
-                                <Badge variant="outline" className="text-[11px]">
-                                  <FileText className="h-3 w-3" />
-                                  Reading Passage
-                                </Badge>
-                              )}
-                              {assignment.media_type === "VIDEO_URL" && (
-                                <Badge variant="outline" className="text-[11px]">
-                                  <Video className="h-3 w-3" />
-                                  Video
-                                </Badge>
-                              )}
-                              {assignment.media_type === "AUDIO_MP4_UPLOAD" && (
-                                <Badge variant="outline" className="text-[11px]">
-                                  <Headphones className="h-3 w-3" />
-                                  Audio / Media
-                                </Badge>
-                              )}
-                            </div>
-
-                            <h3 className="mt-1.5 text-base font-semibold text-[#0f2544] group-hover:text-[#0f766e]">
+                            <h3 className="text-base font-semibold text-[#0f2544] group-hover:text-[#0f766e]">
                               {assignment.title}
                             </h3>
                             {assignment.instructions && (
@@ -254,7 +213,11 @@ export default async function StepDetailPage({ params }: StepPageProps) {
                                   Pending Grade
                                 </Badge>
                               ) : (
-                                <Badge variant="success">
+                                <Badge
+                                  variant={getScoreBadgeVariant(
+                                    sub.percentage_score
+                                  )}
+                                >
                                   <CheckCircle2 className="h-3 w-3" />
                                   {sub.percentage_score !== null
                                     ? `${Math.round(Number(sub.percentage_score))}%`
@@ -264,11 +227,6 @@ export default async function StepDetailPage({ params }: StepPageProps) {
                             ) : (
                               <Badge variant="secondary">Not Started</Badge>
                             )}
-
-                            <span className="inline-flex items-center gap-1 text-sm font-medium text-[#0f766e]">
-                              {isDone ? "Review" : "Start"}
-                              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                            </span>
                           </div>
                         </Link>
                       );

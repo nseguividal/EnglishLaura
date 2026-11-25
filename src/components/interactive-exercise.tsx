@@ -12,7 +12,10 @@ import {
   XCircle,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { gradeInteractiveExercise } from "@/lib/scoring";
+import {
+  getScoreBadgeVariant,
+  gradeInteractiveExercise,
+} from "@/lib/scoring";
 import {
   QUESTION_TYPE_LABELS,
   type Assignment,
@@ -139,7 +142,11 @@ export function InteractiveExercise({
                         : "Exercise Completed — Mistake Review"}
                   </h2>
                   {submission.percentage_score !== null && (
-                    <Badge variant="success">
+                    <Badge
+                      variant={getScoreBadgeVariant(
+                        submission.percentage_score
+                      )}
+                    >
                       Score: {Math.round(Number(submission.percentage_score))}%
                     </Badge>
                   )}
