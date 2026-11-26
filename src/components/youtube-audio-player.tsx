@@ -91,6 +91,7 @@ export function YouTubeAudioPlayer({
 
   const playerRef = useRef<YTPlayerInstance | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const seekingUntilRef = useRef<number>(0);
 
   const [ready, setReady] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -132,9 +133,15 @@ export function YouTubeAudioPlayer({
           },
           onStateChange: (ev) => {
             if (cancelled) return;
-            const isPlaying = ev.data === 1;
-            setPlaying(isPlaying);
-            if (ev.data === 0) {
+            // Ignore transient BUFFERING (3) and brief PAUSED (2) emitted by YouTube during seekTo
+            if (ev.data === 1) {
+              setPlaying(true);
+            } else if (ev.data === 0) {
+              setPlaying(false);
+            } else if (
+              ev.data === 2 &&
+              Date.now() > seekingUntilRef.current
+            ) {
               setPlaying(false);
             }
           },
@@ -201,13 +208,29 @@ export function YouTubeAudioPlayer({
   function handleReplay() {
     const p = playerRef.current;
     if (!p || !ready) return;
+    seekingUntilRef.current = Date.now() + 900;
     p.seekTo(startSec, true);
     p.playVideo();
+    setPlaying(true);
+  }
+
+  function handleRewind10s() {
+    const p = playerRef.current;
+    if (!p || !ready) return;
+    if (playing) {
+      seekingUntilRef.current = Date.now() + 900;
+    }
+    const targetSec = Math.max(startSec, p.getCurrentTime() - 10);
+    p.seekTo(targetSec, true);
+    setCurrentTime(targetSec);
   }
 
   function handleScrub(e: React.ChangeEvent<HTMLInputElement>) {
     const p = playerRef.current;
     if (!p || !ready) return;
+    if (playing) {
+      seekingUntilRef.current = Date.now() + 900;
+    }
     const offset = Number(e.target.value);
     const targetSec = startSec + offset;
     p.seekTo(targetSec, true);
@@ -281,6 +304,18 @@ export function YouTubeAudioPlayer({
               Play Audio
             </>
           )}
+        </Button>
+
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          disabled={!ready}
+          onClick={handleRewind10s}
+          title="Go back 10 seconds"
+        >
+          <RotateCcw className="h-3.5 w-3.5" />
+          10s
         </Button>
 
         <Button
